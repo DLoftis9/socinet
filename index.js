@@ -2,6 +2,8 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
+// const expressValidator = require("express-validator");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
@@ -25,6 +27,9 @@ mongoose
 
 // Setup morgan which gives HTTP request logging.
 app.use(morgan("dev"));
+app.use(bodyParser.json());
+// app.use(expressValidator());
+
 
 app.get("/", (req, res) => {
   res.json({
