@@ -1,21 +1,27 @@
 "use strict";
 
 const express = require("express");
-const usersRoutes = require("./routes/users.routes");
+const morgan = require("morgan");
+
+const postRoutes = require("./routes/post.routes");
 
 // Create the Express app.
 const app = express();
 
+// Setup morgan which gives HTTP request logging.
+app.use(morgan("dev"));
+
 app.get("/", (req, res) => {
-    res.json({
-      message: "Socinet API"
-    });
+  res.json({
+    message: "Socinet API",
   });
+});
 
 // Add routes.
 // Routes defined in the router will only be considered
 // if the request route starts with the /api path.
-app.use("/api", usersRoutes);
+// app.use("/api", usersRoutes);
+app.use("/api", postRoutes);
 
 // Setup a global error handler.
 app.use((err, req, res, next) => {
