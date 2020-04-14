@@ -1,3 +1,5 @@
 exports.getPosts = (req, res) => {
-    res.send('creating socinet api');
-}
+  res.json({
+    posts: [{ title: "post one" }, { title: "posts two" }],
+  });
+};

@@ -2,11 +2,26 @@
 
 const express = require("express");
 const morgan = require("morgan");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 const postRoutes = require("./routes/post.routes");
 
+dotenv.config();
+
 // Create the Express app.
 const app = express();
+
+//mongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
 
 // Setup morgan which gives HTTP request logging.
 app.use(morgan("dev"));
