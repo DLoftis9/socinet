@@ -1,21 +1,49 @@
 "use strict";
 
 const express = require("express");
-const usersRoutes = require("./routes/users.routes");
+const morgan = require("morgan");
+const bodyParser = require("body-parser");
+// const expressValidator = require("express-validator");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+
+const postRoutes = require("./routes/post.routes");
+const authRoutes = require("./routes/auth.routes");
+
+dotenv.config();
 
 // Create the Express app.
 const app = express();
 
+//mongoDB connection
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
+
+// Setup morgan which gives HTTP request logging.
+app.use(morgan("dev"));
+app.use(bodyParser.json());
+// app.use(expressValidator());
+
+
 app.get("/", (req, res) => {
-    res.json({
-      message: "Socinet API"
-    });
+  res.json({
+    message: "Socinet API",
   });
+});
 
 // Add routes.
 // Routes defined in the router will only be considered
 // if the request route starts with the /api path.
-app.use("/api", usersRoutes);
+// app.use("/api", usersRoutes);
+app.use("/api", postRoutes);
+app.use("/api", authRoutes);
 
 // Setup a global error handler.
 app.use((err, req, res, next) => {
