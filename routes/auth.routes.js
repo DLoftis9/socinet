@@ -1,5 +1,6 @@
 const express = require("express");
 const { signup, signin, signout } = require("../controllers/auth.controllers");
+const { userById } = require("../controllers/user.controllers");
 const { check } = require("express-validator");
 
 const authRouter = express.Router();
@@ -41,5 +42,9 @@ authRouter.post("/signin", signin);
 
 authRouter.get("/signout", signout);
 
+// any route container :userId, app wil first execute userById()
+// use this method for requiring authorization in any part of the 
+// app where only the authenticated user can have authorization
+authRouter.param("userId", userById);
 
 module.exports = authRouter;

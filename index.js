@@ -3,7 +3,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-const cookieParser = require('cookie-parser');
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const postRoutes = require("./routes/post.routes");
@@ -42,6 +42,12 @@ app.get("/", (req, res) => {
 // app.use("/api", usersRoutes);
 app.use("/api", postRoutes);
 app.use("/api", authRoutes);
+// Middleware for unauthorized users
+app.use(function (err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json({ error: "Unauthorized" });
+  }
+});
 
 // Setup a global error handler.
 app.use((err, req, res, next) => {
