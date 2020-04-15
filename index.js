@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 
 const postRoutes = require("./routes/post.routes");
+const authRoutes = require("./routes/auth.routes");
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 // if the request route starts with the /api path.
 // app.use("/api", usersRoutes);
 app.use("/api", postRoutes);
+app.use("/api", authRoutes);
 
 // Setup a global error handler.
 app.use((err, req, res, next) => {

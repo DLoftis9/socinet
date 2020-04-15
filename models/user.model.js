@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema
-  .vurtual("password")
+  .virtual("password")
   .set(function (password) {
     // create temporary variable called _password
     this._password = password;
