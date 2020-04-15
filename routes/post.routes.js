@@ -1,10 +1,11 @@
 const express = require("express");
 const { getPosts, createPost} = require("../controllers/post.controllers");
+const { requireSignin } = require("../controllers/auth.controllers");
 const { check } = require("express-validator");
 
 const postRouter = express.Router();
 
-postRouter.get("/", getPosts);
+postRouter.get("/",requireSignin, getPosts);
 
 postRouter.post(
   "/post",
