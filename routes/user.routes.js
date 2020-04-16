@@ -10,7 +10,9 @@ const userRouter = express.Router();
 
 // route to return all users
 userRouter.get("/users", allUsers);
+
 // route to return single user with :userId
+// requireSignin for authentication to view all users
 userRouter.get("/user/:userId", requireSignin, getUser);
 
 // any route containing :userId, app wil first execute userById()
