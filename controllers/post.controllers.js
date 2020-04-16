@@ -4,7 +4,8 @@ const fs = require("fs");
 const { validationResult } = require("express-validator");
 
 exports.getPosts = (req, res) => {
-  Post.find()
+  const posts = Post.find()
+    .populate("postedBy", "_id name")
     .select("_id title body")
     .then((posts) => {
       res.json({ posts });
