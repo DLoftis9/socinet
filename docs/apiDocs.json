@@ -1,0 +1,13 @@
+{
+  "/": "/api is needed to access API",
+  "/api": "API Title",
+  "/api/signup": "signup",
+  "/api/signin": "signin",
+  "/api/signout": "signout",
+  "/api/users": "get all users",
+  "/api/user/:userId": "get / update / delete user",
+  "/api/posts": "get all posts",
+  "/api/post/new/:userId": "create new post",
+  "/api/posts/by/:userId": "create new post",
+  "/api/post/:postId": "update / delete post"
+}

@@ -15,7 +15,7 @@ const { check } = require("express-validator");
 const postRouter = express.Router();
 
 // if all user's aren't suppose to see all posts, add requireSignin middle for authorization
-postRouter.get("/", getPosts);
+postRouter.get("/posts", getPosts);
 
 postRouter.post("/post/new/:userId", requireSignin, createPost, [
   // title

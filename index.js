@@ -5,6 +5,8 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
+const cors = require('cors')
+const fs = require('fs')
 const dotenv = require("dotenv");
 const postRoutes = require("./routes/post.routes");
 const authRoutes = require("./routes/auth.routes");
@@ -30,8 +32,23 @@ mongoose
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
+app.use(cors())
 
+// apiDocs
 app.get("/", (req, res) => {
+  fs.readFile("docs/apiDocs.json", (err, data) => {
+    if (err) {
+      res.status(400).json({
+        error: err,
+      });
+    }
+
+    const docs = JSON.parse(data);
+    res.json(docs);
+  });
+});
+
+app.get("/api", (req, res) => {
   res.json({
     message: "Socinet API",
   });
