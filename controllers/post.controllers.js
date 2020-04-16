@@ -1,4 +1,6 @@
 const Post = require("../models/post.model");
+const formidable = require("formidable");
+const fs = require("fs");
 const { validationResult } = require("express-validator");
 
 exports.getPosts = (req, res) => {
@@ -10,7 +12,7 @@ exports.getPosts = (req, res) => {
     .catch((err) => console.log(err));
 };
 
-exports.createPost = (req, res) => {
+exports.createPost = (req, res, next) => {
   // check for errors
   const errors = validationResult(req);
 
@@ -20,11 +22,31 @@ exports.createPost = (req, res) => {
     return res.status(400).json({ error: returnError });
   }
 
-  const post = new Post(req.body);
+  // capabilities for adding images
+  let form = new formidable.IncomingForm();
+  form.keepExtensions = true;
+  form.parse(req, (err, fields, files) => {
+    if (err) {
+      return res.status(400).json({
+        error: "Image could not be uploaded",
+      });
+    }
 
-  post.save().then((result) => {
-    res.json({
-      post: result,
+    // add photo from the client
+    let post = new Post(fields);
+    post.postedBy = req.profile;
+    if (files.photo) {
+      post.photo.data = fs.readFileSync(files.photo.path);
+      post.photo.contentType = files.photo.type;
+    }
+
+    post.save((err, result) => {
+      if (err) {
+        return res.status(400).json({
+          error: err,
+        });
+      }
+      res.json(result);
     });
   });
 };

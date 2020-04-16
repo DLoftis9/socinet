@@ -6,16 +6,6 @@
       "src": "/",
       "dest": "/index.js",
       "methods": ["GET"]
-    },
-    {
-      "src": "/api",
-      "dest": "/index.js",
-      "methods": ["GET"]
-    },
-    {
-      "src": "/api/post",
-      "dest": "/index.js",
-      "methods": ["POST"]
     }
   ]
 }
