@@ -43,7 +43,7 @@ exports.getUser = (req, res) => {
   return res.json(req.profile);
 };
 
-exports.updateUser = (req, res, next) => {
+exports.updateUser = (req, res) => {
   let user = req.profile;
 
   // extend - mutate the source object
@@ -59,5 +59,18 @@ exports.updateUser = (req, res, next) => {
     user.hashed_password = undefined;
     user.salt = undefined;
     res.json({ user });
+  });
+};
+
+exports.deleteUser = (req, res, next) => {
+  let user = req.profile;
+  user.remove((err, user) => {
+    if (err) {
+      return res.status(400).json({
+        error: "There was a problem while trying to delete a user",
+      });
+    }
+
+    res.json({ message: "User has been deleted" });
   });
 };

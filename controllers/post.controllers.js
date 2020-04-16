@@ -34,6 +34,9 @@ exports.createPost = (req, res, next) => {
 
     // add photo from the client
     let post = new Post(fields);
+
+    req.profile.hashed_password = undefined;
+    req.profile.salt = undefined;
     post.postedBy = req.profile;
 
     if (files.photo) {
@@ -50,12 +53,4 @@ exports.createPost = (req, res, next) => {
       res.json(result);
     });
   });
-
-  // const post = new Post(req.body);
-
-  // post.save().then((result) => {
-  //   res.json({
-  //     post: result,
-  //   });
-  // });
 };
