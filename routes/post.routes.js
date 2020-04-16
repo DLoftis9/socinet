@@ -1,5 +1,9 @@
 const express = require("express");
-const { getPosts, createPost } = require("../controllers/post.controllers");
+const {
+  getPosts,
+  createPost,
+  postsByUser,
+} = require("../controllers/post.controllers");
 const { requireSignin } = require("../controllers/auth.controllers");
 const { userById } = require("../controllers/user.controllers");
 const { check } = require("express-validator");
@@ -24,6 +28,8 @@ postRouter.post("/post/new/:userId", requireSignin, createPost, [
     max: 2000,
   }),
 ]);
+
+postRouter.get("/posts/by/:userId", postsByUser);
 
 // any route container :userId, app wil first execute userById()
 // use this method for requiring authorization in any part of the
