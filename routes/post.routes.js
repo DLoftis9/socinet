@@ -29,7 +29,7 @@ postRouter.post("/post/new/:userId", requireSignin, createPost, [
   }),
 ]);
 
-postRouter.get("/posts/by/:userId", postsByUser);
+postRouter.get("/posts/by/:userId", requireSignin, postsByUser);
 
 // any route container :userId, app wil first execute userById()
 // use this method for requiring authorization in any part of the
