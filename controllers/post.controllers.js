@@ -16,7 +16,7 @@ exports.createPost = (req, res, next) => {
   // check for errors
   const errors = validationResult(req);
 
-  // if error show the first one as they happen
+  // if error show when they happen
   if (!errors.isEmpty()) {
     const returnError = errors.array().map((error) => error.msg);
     return res.status(400).json({ error: returnError });
@@ -35,6 +35,7 @@ exports.createPost = (req, res, next) => {
     // add photo from the client
     let post = new Post(fields);
     post.postedBy = req.profile;
+
     if (files.photo) {
       post.photo.data = fs.readFileSync(files.photo.path);
       post.photo.contentType = files.photo.type;
@@ -49,4 +50,12 @@ exports.createPost = (req, res, next) => {
       res.json(result);
     });
   });
+
+  // const post = new Post(req.body);
+
+  // post.save().then((result) => {
+  //   res.json({
+  //     post: result,
+  //   });
+  // });
 };

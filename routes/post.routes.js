@@ -33,6 +33,6 @@ postRouter.post(
 // any route container :userId, app wil first execute userById()
 // use this method for requiring authorization in any part of the
 // app where only the authenticated user can have authorization
-postRouter.param("userId", userById);
+// postRouter.param("userId", userById);
 
 module.exports = postRouter;

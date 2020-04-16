@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const postRoutes = require("./routes/post.routes");
 const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/user.routes");
 
 dotenv.config();
 
@@ -42,6 +43,7 @@ app.get("/", (req, res) => {
 // app.use("/api", usersRoutes);
 app.use("/api", postRoutes);
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
 // Middleware for unauthorized users
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
