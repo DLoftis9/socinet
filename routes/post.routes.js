@@ -3,6 +3,10 @@ const {
   getPosts,
   createPost,
   postsByUser,
+  postById,
+  isPoster,
+  deletePost,
+  updatePost,
 } = require("../controllers/post.controllers");
 const { requireSignin } = require("../controllers/auth.controllers");
 const { userById } = require("../controllers/user.controllers");
@@ -11,7 +15,7 @@ const { check } = require("express-validator");
 const postRouter = express.Router();
 
 // if all user's aren't suppose to see all posts, add requireSignin middle for authorization
-postRouter.get("/", getPosts);
+postRouter.get("/posts", getPosts);
 
 postRouter.post("/post/new/:userId", requireSignin, createPost, [
   // title
@@ -30,10 +34,15 @@ postRouter.post("/post/new/:userId", requireSignin, createPost, [
 ]);
 
 postRouter.get("/posts/by/:userId", requireSignin, postsByUser);
+postRouter.delete("/post/:postId", requireSignin, isPoster, deletePost);
+postRouter.put("/post/:postId", requireSignin, isPoster, updatePost);
 
 // any route container :userId, app wil first execute userById()
 // use this method for requiring authorization in any part of the
 // app where only the authenticated user can have authorization
 postRouter.param("userId", userById);
+
+// any route container :postId, the app will first execute postById()
+postRouter.param("postId", postById);
 
 module.exports = postRouter;
