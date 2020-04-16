@@ -3,12 +3,12 @@
 const express = require("express");
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
-// const expressValidator = require("express-validator");
+const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-
 const postRoutes = require("./routes/post.routes");
 const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/user.routes");
 
 dotenv.config();
 
@@ -29,8 +29,7 @@ mongoose
 // Setup morgan which gives HTTP request logging.
 app.use(morgan("dev"));
 app.use(bodyParser.json());
-// app.use(expressValidator());
-
+app.use(cookieParser());
 
 app.get("/", (req, res) => {
   res.json({
@@ -44,6 +43,13 @@ app.get("/", (req, res) => {
 // app.use("/api", usersRoutes);
 app.use("/api", postRoutes);
 app.use("/api", authRoutes);
+app.use("/api", userRoutes);
+// Middleware for unauthorized users
+app.use(function (err, req, res, next) {
+  if (err.name === "UnauthorizedError") {
+    res.status(401).json({ error: "Unauthorized" });
+  }
+});
 
 // Setup a global error handler.
 app.use((err, req, res, next) => {
