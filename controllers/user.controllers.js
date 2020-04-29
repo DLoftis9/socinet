@@ -8,7 +8,7 @@ exports.userById = (req, res, next, id) => {
         error: "User not found",
       });
     }
-    
+
     // adds profile object in req with user info
     req.profile = user;
     next();
@@ -54,7 +54,7 @@ exports.updateUser = (req, res) => {
   user.save((err) => {
     if (err) {
       return res.status(400).json({
-        error: "You are not authorized to perform this action",
+        error: ["Unable to perform this action"],
       });
     }
 
