@@ -1,0 +1,19 @@
+// method for updating user with just form data
+// exports.updateUser = (req, res) => {
+//   let user = req.profile;
+
+//   // extend - mutate the source object
+//   user = _.extend(user, req.body);
+//   user.updated = Date.now();
+//   user.save((err) => {
+//     if (err) {
+//       return res.status(400).json({
+//         error: ["Unable to perform this action"],
+//       });
+//     }
+
+//     user.hashed_password = undefined;
+//     user.salt = undefined;
+//     res.json({ user });
+//   });
+// };
