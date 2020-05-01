@@ -5,11 +5,25 @@ const {
   getUser,
   updateUser,
   userPhoto,
+  addFollowing,
+  addFollower,
+  removeFollowing,
+  removeFollower,
   deleteUser,
 } = require("../controllers/user.controllers");
 const { requireSignin } = require("../controllers/auth.controllers");
 
 const userRouter = express.Router();
+
+// route to follow users
+// IMPORTANT: addFollowing should be before addFollower
+userRouter.put("/user/follow", requireSignin, addFollowing, addFollower);
+userRouter.put(
+  "/user/unfollow",
+  requireSignin,
+  removeFollowing,
+  removeFollower
+);
 
 // route to return all users
 userRouter.get("/users", allUsers);
