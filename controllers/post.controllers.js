@@ -1,4 +1,5 @@
 const Post = require("../models/post.model");
+const chalk = require('chalk')
 const _ = require("lodash");
 const formidable = require("formidable");
 const fs = require("fs");
@@ -26,7 +27,7 @@ exports.getPosts = (req, res) => {
     .then((posts) => {
       res.json({ posts });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log(chalk.red((err))));
 };
 
 exports.createPost = (req, res, next) => {
