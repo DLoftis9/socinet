@@ -203,3 +203,18 @@ exports.removeFollower = (req, res) => {
       res.json(result);
     });
 };
+
+// method to find users
+exports.findPeople = (req, res) => {
+  let following = req.profile.following;
+  following.push(req.profile._id);
+  User.find({ _id: { $nin: following } }, (err, users) => {
+    if (err) {
+      return res.status(400).json({
+        error: err,
+      });
+    }
+    res.json(users);
+    // the select method chooses how to find and return users
+  }).select('name')
+};
