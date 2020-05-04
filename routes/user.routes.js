@@ -9,6 +9,7 @@ const {
   addFollower,
   removeFollowing,
   removeFollower,
+  findPeople,
   deleteUser,
 } = require("../controllers/user.controllers");
 const { requireSignin } = require("../controllers/auth.controllers");
@@ -35,6 +36,9 @@ userRouter.get("/user/:userId", requireSignin, getUser);
 userRouter.put("/user/:userId", requireSignin, updateUser);
 
 userRouter.get("/user/photo/:userId", userPhoto);
+
+// route for who to follow
+userRouter.get("/user/findpeople/:userId", requireSignin, findPeople);
 
 userRouter.delete("/user/:userId", requireSignin, deleteUser);
 

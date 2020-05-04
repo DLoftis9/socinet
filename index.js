@@ -5,12 +5,13 @@ const morgan = require("morgan");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
-const cors = require('cors')
-const fs = require('fs')
+const cors = require("cors");
+const fs = require("fs");
 const dotenv = require("dotenv");
 const postRoutes = require("./routes/post.routes");
 const authRoutes = require("./routes/auth.routes");
 const userRoutes = require("./routes/user.routes");
+const chalk = require("chalk");
 
 dotenv.config();
 
@@ -25,14 +26,14 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log("MongoDB Connected..."))
-  .catch((err) => console.log(err));
+  .then(() => console.log(chalk.whiteBright("MongoDB Connected...")))
+  .catch((err) => console.log(chalk.red(err)));
 
 // Setup morgan which gives HTTP request logging.
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(cors())
+app.use(cors());
 
 // apiDocs
 app.get("/", (req, res) => {
@@ -86,5 +87,7 @@ app.set("port", process.env.PORT || 5000);
 
 // Start listening on our port.
 const server = app.listen(app.get("port"), () => {
-  console.log(`Server is listening on port ${server.address().port}`);
+  console.log(
+    chalk.whiteBright(`Server is listening on port ${server.address().port}`)
+  );
 });
