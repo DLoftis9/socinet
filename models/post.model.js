@@ -11,7 +11,7 @@ const postSchema = new mongoose.Schema({
     required: "Body is required",
   },
   photo: {
-    type: Buffer,
+    data: Buffer,
     contentType: String,
   },
   postedBy: {

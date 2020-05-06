@@ -1,5 +1,5 @@
 const Post = require("../models/post.model");
-const chalk = require('chalk')
+const chalk = require("chalk");
 const _ = require("lodash");
 const formidable = require("formidable");
 const fs = require("fs");
@@ -27,7 +27,7 @@ exports.getPosts = (req, res) => {
     .then((posts) => {
       res.json({ posts });
     })
-    .catch((err) => console.log(chalk.red((err))));
+    .catch((err) => console.log(chalk.red(err)));
 };
 
 exports.createPost = (req, res, next) => {
@@ -42,7 +42,6 @@ exports.createPost = (req, res, next) => {
 
   // capabilities for adding images
   let form = new formidable.IncomingForm();
-  
   form.keepExtensions = true;
   form.parse(req, (err, fields, files) => {
     if (err) {
@@ -50,8 +49,6 @@ exports.createPost = (req, res, next) => {
         error: "Image could not be uploaded",
       });
     }
-
-    // add photo from the client
     let post = new Post(fields);
 
     req.profile.hashed_password = undefined;
@@ -100,19 +97,19 @@ exports.isPoster = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-  let post = req.post
-  post = _.extend(post, req.body)
-  post.updated = Date.now()
-  post.save(err => {
-    if(err) {
+  let post = req.post;
+  post = _.extend(post, req.body);
+  post.updated = Date.now();
+  post.save((err) => {
+    if (err) {
       return res.status(400).json({
-        error: err
-      })
+        error: err,
+      });
     }
 
     res.json(post);
-  })
-}
+  });
+};
 
 exports.deletePost = (req, res) => {
   let post = req.post;
