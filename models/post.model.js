@@ -4,11 +4,11 @@ const { ObjectId } = mongoose.Schema;
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: "Title is required",
+    required: true,
   },
   body: {
     type: String,
-    required: "Body is required",
+    required: true,
   },
   photo: {
     data: Buffer,
@@ -22,6 +22,8 @@ const postSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  updated: Date,
+  likes: [{ type: ObjectId, ref: 'User' }],
 });
 
 module.exports = mongoose.model("Post", postSchema);
