@@ -40,6 +40,7 @@ postRouter.get("/post/:postId", singlePost);
 
 postRouter.delete("/post/:postId", requireSignin, isPoster, deletePost);
 postRouter.put("/post/:postId", requireSignin, isPoster, updatePost);
+
 // photo
 postRouter.get("/post/photo/:postId", photo);
 
