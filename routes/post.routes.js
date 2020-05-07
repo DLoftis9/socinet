@@ -9,6 +9,8 @@ const {
   updatePost,
   singlePost,
   photo,
+  like,
+  unlike,
 } = require("../controllers/post.controllers");
 const { requireSignin } = require("../controllers/auth.controllers");
 const { userById } = require("../controllers/user.controllers");
@@ -18,6 +20,10 @@ const postRouter = express.Router();
 
 // if all user's aren't suppose to see all posts, add requireSignin middle for authorization
 postRouter.get("/posts", getPosts);
+
+// like / unlike logic
+postRouter.put("/post/like", requireSignin, like);
+postRouter.put("/post/unlike", requireSignin, unlike);
 
 postRouter.post("/post/new/:userId", requireSignin, createPost, [
   // title
