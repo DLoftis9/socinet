@@ -11,6 +11,8 @@ const {
   photo,
   like,
   unlike,
+  comment,
+  uncomment,
 } = require("../controllers/post.controllers");
 const { requireSignin } = require("../controllers/auth.controllers");
 const { userById } = require("../controllers/user.controllers");
@@ -24,6 +26,10 @@ postRouter.get("/posts", getPosts);
 // like / unlike logic
 postRouter.put("/post/like", requireSignin, like);
 postRouter.put("/post/unlike", requireSignin, unlike);
+
+// comments
+postRouter.put("/post/comment", requireSignin, comment);
+postRouter.put("/post/uncomment", requireSignin, uncomment);
 
 postRouter.post("/post/new/:userId", requireSignin, createPost, [
   // title
