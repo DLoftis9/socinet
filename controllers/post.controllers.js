@@ -196,7 +196,7 @@ exports.unlike = (req, res) => {
 
 exports.comment = (req, res) => {
   let comment = req.body.comment;
-  comment.postBy = req.body.userId;
+  comment.postedBy = req.body.userId;
 
   Post.findByIdAndUpdate(
     req.body.postId,
