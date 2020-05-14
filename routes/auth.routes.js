@@ -1,5 +1,11 @@
 const express = require("express");
-const { signup, signin, signout } = require("../controllers/auth.controllers");
+const {
+  signup,
+  signin,
+  signout,
+  forgotPassword,
+  resetPassword,
+} = require("../controllers/auth.controllers");
 const { userById } = require("../controllers/user.controllers");
 const { check } = require("express-validator");
 
@@ -62,6 +68,20 @@ authRouter.post(
       .withMessage("Password must contain a number"),
   ],
   signin
+);
+
+authRouter.put("/forgot-password", forgotPassword);
+authRouter.put(
+  "/reset-password",
+  [
+    check("newPassword", "Password is required").notEmpty(),
+    check("newPassword").isLength({ min: 6 })
+    .withMessage("Password must be at least 6 chars long")
+    .matches(/\d/)
+    .withMessage("must contain a number")
+    .withMessage("Password must contain a number")
+  ],
+  resetPassword
 );
 
 authRouter.get("/signout", signout);
