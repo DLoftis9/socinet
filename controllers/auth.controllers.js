@@ -76,7 +76,7 @@ exports.forgotPassword = (req, res) => {
     // if err or no user
     if (err || !user)
       return res.status("401").json({
-        error: "User with that email does not exist!",
+        error: ["User with that email does not exist!"],
       });
 
     // generate a token with user id and secret
@@ -132,7 +132,7 @@ exports.resetPassword = (req, res) => {
     // if err or no user
     if (err || !user)
       return res.status("401").json({
-        error: "Invalid Link!",
+        error: ["Invalid Link!"],
       });
 
     const updatedFields = {
