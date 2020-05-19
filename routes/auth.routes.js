@@ -5,6 +5,7 @@ const {
   signout,
   forgotPassword,
   resetPassword,
+  socialLogin
 } = require("../controllers/auth.controllers");
 const { userById } = require("../controllers/user.controllers");
 const { check } = require("express-validator");
@@ -70,7 +71,10 @@ authRouter.post(
   signin
 );
 
+authRouter.post("/social-login", socialLogin);
+
 authRouter.put("/forgot-password", forgotPassword);
+
 authRouter.put(
   "/reset-password",
   [
