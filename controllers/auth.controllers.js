@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-
+const _ = require("lodash");
 const { sendEmail } = require("../helpers");
 const dotenv = require("dotenv");
 require("dotenv").config();
