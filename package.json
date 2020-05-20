@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "dev": "nodemon",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,7 +13,7 @@
     "url": "git+https://github.com/DLoftis9/socinet.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "100 Beans Development",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DLoftis9/socinet/issues"

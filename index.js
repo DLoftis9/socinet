@@ -62,6 +62,7 @@ app.get("/api", (req, res) => {
 app.use("/api", postRoutes);
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
+
 // Middleware for unauthorized users
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
