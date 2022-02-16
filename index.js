@@ -26,7 +26,7 @@ mongoose
     useFindAndModify: false,
     useUnifiedTopology: true,
   })
-  .then(() => console.log(chalk.whiteBright("MongoDB Connected...")))
+  .then(() => console.log(chalk.green("MongoDB Connected...")))
   .catch((err) => console.log(chalk.red(err)));
 
 // Setup morgan which gives HTTP request logging.
